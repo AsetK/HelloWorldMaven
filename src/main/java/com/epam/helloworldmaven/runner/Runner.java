@@ -1,35 +1,12 @@
 package com.epam.helloworldmaven.runner;
 
-import com.epam.helloworldmaven.service.PrinterInterface;
-
-
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.ServiceLoader;
-
+import org.apache.commons.lang3.StringUtils;
 
 public class Runner {
 
     public static void main(String[] args) {
-        String name = args[0];
 
-        ServiceLoader<PrinterInterface> loader = ServiceLoader.load(PrinterInterface.class);
-        Iterator<PrinterInterface> iterator = loader.iterator();
-
-        PrinterInterface printer = null;
-
-        if(iterator.hasNext()){
-            printer = iterator.next();
-        }
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("properties.message");
-        String message = resourceBundle.getString("greeting");
-
-        printer.print(message + name);
-
-//
-
-
-
+        System.out.println(StringUtils.isEmpty(""));
 
     }
 }

@@ -6,14 +6,35 @@
 
     <groupId>com.epam.helloworld</groupId>
     <artifactId>HelloWorld_Maven</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
-    <properties>
-        <env.propertyFile></env.propertyFile>
-    </properties>
+    <distributionManagement>
+        <repository>
+            <id>nexus_sandbox</id>
+            <url>http://epkzkarw0579:8081/repository/mdp-sandbox-release/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>nexus_mirror</id>
+            <url>http://epkzkarw0579:8081/repository/mdp-sandbox-mirror/</url>
+        </repository>
+<!--        <repository>-->
+<!--            <id>nexus_sandbox</id>-->
+<!--            <url>http://epkzkarw0579:8081/repository/mdp-sandbox-release/</url>-->
+<!--        </repository>-->
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8</version>
+        </dependency>
+    </dependencies>
 
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -31,39 +52,36 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>com.epam.helloworldmaven.runner.Runner</mainClass>
+                            <classpathPrefix>../lib/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
+            <!--  Copy dependencies from .m2 to project directory  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.basedir}/lib/
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-
-
     </build>
 
-    <profiles>
-        <profile>
-            <id>profile_prod</id>
-            <properties>
-                <env.propertyFile>prod</env.propertyFile>
-            </properties>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
-                        <includes>
-                            <include>**/META-INF/</include>
-                            <include>**/properties/message.properties</include>
-                        </includes>
-                    </resource>
-                </resources>
-                <filters>
-                    <filter>src/main/resources/properties/message_${env.propertyFile}.properties</filter>
-                </filters>
-            </build>
-        </profile>
-    </profiles>
 
 
 </project>
