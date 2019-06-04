@@ -36,39 +36,34 @@
                     </archive>
                 </configuration>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-resources-plugin</artifactId>-->
-<!--                <version>2.6</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <configuration>-->
-<!--                            <resource>-->
-<!--                                <directory>src/main/resources</directory>-->
-<!--                                <exclude>**/properties/*.properties</exclude>-->
-<!--                            </resource>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
         </plugins>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/META-INF/</include>
-                    <include>**/properties/message.properties</include>
-                </includes>
-            </resource>
-        </resources>
-        <filters>
-            <filter>src/main/resources/properties/message_${env.propertyFile}.properties</filter>
-        </filters>
+
     </build>
+
+    <profiles>
+        <profile>
+            <id>profile_prod</id>
+            <properties>
+                <env.propertyFile>prod</env.propertyFile>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>**/META-INF/</include>
+                            <include>**/properties/message.properties</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <filters>
+                    <filter>src/main/resources/properties/message_${env.propertyFile}.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
 
 
 </project>
