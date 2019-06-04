@@ -12,7 +12,6 @@ public class Runner {
 
     public static void main(String[] args) {
         String name = args[0];
-//        String name = "Aset";
 
         ServiceLoader<PrinterInterface> loader = ServiceLoader.load(PrinterInterface.class);
         Iterator<PrinterInterface> iterator = loader.iterator();
