@@ -20,10 +20,6 @@
             <id>nexus_mirror</id>
             <url>http://epkzkarw0579:8081/repository/mdp-sandbox-mirror/</url>
         </repository>
-<!--        <repository>-->
-<!--            <id>nexus_sandbox</id>-->
-<!--            <url>http://epkzkarw0579:8081/repository/mdp-sandbox-release/</url>-->
-<!--        </repository>-->
     </repositories>
 
     <dependencies>
