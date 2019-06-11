@@ -9,7 +9,7 @@ public class CalculatorTest {
     @Test
     public void add() {
         int expResult = 5;
-        int result = Calculator.add(2,4);
+        int result = Calculator.add(2,3);
         assertEquals(expResult, result);
     }
 }
